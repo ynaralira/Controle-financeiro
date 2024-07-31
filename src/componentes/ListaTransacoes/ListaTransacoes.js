@@ -224,6 +224,7 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
                                     onChange={() => registrarPagamento(index)}
                                 />
                             )}
+                            
                             <span className={Icone({ isPaid: transacao.isPaid })}>
                                 {getIconForFormaPagamento(transacao.ID_FORMA_PAGAMENTO)}
                             </span>
