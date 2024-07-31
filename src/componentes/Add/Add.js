@@ -33,7 +33,7 @@ function Add({ onInsert, tipoTransacao }) {
             id_usuario: userId 
         };
 
-        fetch('http://localhost/php/insert__dados_lista.php', {
+        fetch('../../../php/insert__dados_lista.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

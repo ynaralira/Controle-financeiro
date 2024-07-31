@@ -11,7 +11,7 @@ const ValorTotalEntrada = ({ totalEntradas, atualizarTotalEntradas }) => {
     if (location.pathname === '/home' && userId) {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost/php/index.php", {
+          const response = await fetch("../../../php/index.php", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

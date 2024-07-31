@@ -33,7 +33,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch('http://localhost/php/auth.php', {
+      const response = await fetch('../../php/auth.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
