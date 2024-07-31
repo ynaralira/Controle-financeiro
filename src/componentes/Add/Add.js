@@ -33,7 +33,7 @@ function Add({ onInsert, tipoTransacao }) {
             id_usuario: userId 
         };
 
-        fetch('/insert__dados_lista.php', {
+        fetch('https://controle-financeiro-git-main-ynaraliras-projects.vercel.app/insert__dados_lista.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

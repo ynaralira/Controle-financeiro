@@ -33,7 +33,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch('/auth.php', {
+      const response = await fetch('https://controle-financeiro-git-main-ynaraliras-projects.vercel.app/auth.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

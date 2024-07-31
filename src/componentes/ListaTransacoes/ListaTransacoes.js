@@ -58,7 +58,7 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
                 }
             }
 
-            const response = await fetch("/registrar_pagamento.php", {
+            const response = await fetch("https://controle-financeiro-git-main-ynaraliras-projects.vercel.app/registrar_pagamento.php", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
 
     const excluirEntradaCorrespondente = async (valorTransacao) => {
         try {
-            const response = await fetch("/excluir_entrada_correspondente.php", {
+            const response = await fetch("https://controle-financeiro-git-main-ynaraliras-projects.vercel.app/excluir_entrada_correspondente.php", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
     const excluirTransacao = async (index, tipoTransacao) => {
         try {
             const transacao = transacoes[index];
-            const response = await fetch("/excluir_transacao.php", {
+            const response = await fetch("https://controle-financeiro-git-main-ynaraliras-projects.vercel.app/excluir_transacao.php", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
 
     const fetchData = async () => {
         try {
-            const response = await fetch("/lista_transacoes.php", {
+            const response = await fetch("https://controle-financeiro-git-main-ynaraliras-projects.vercel.app/lista_transacoes.php", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
