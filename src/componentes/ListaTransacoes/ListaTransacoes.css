@@ -1,0 +1,98 @@
+
+.container-lista{
+    margin-top: 20px;
+  }
+  
+  .container-lista > ul{
+    list-style: none;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  .container-lista > ul > li{
+    background-color: #252525;
+    padding: 20px;
+    display: flex;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .container-lista > ul > li > span {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .data-valor{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .titulo{
+    font-weight: 500;
+  }
+  
+  .message{
+    background-color: #252525;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+  }
+  
+  .btn-excluir {
+    background-color: #252525; 
+    color: #fff; 
+    border: none;
+    border-radius: 50px; 
+    padding: 10px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+    display: inline-flex;
+    align-items: center; 
+    gap: 6px; 
+  }
+  
+  .btn-excluir:hover {
+    background-color: #3f3c3c; 
+    transform: scale(1.05); 
+  }
+  
+  .btn-excluir:focus {
+    outline: none; 
+  }
+  
+  .btn-excluir i {
+    font-size: 20px; 
+  }
+  
+
+.icone-entrada{
+    background-color: #02B755;
+  }
+  
+  .icone-saidas{
+    background-color:#9E2903;
+  }
+  
+  .icone-investimento{
+    background-color:#021FB7;
+  }
+  
+  
+  .icone-pagos{
+    background-color: #0333d1;
+  }
+  
+  .icone-investimento, .icone-entrada, .icone-saidas, .icone-pagos{
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    padding: 10px;
+    width: 50px;
+  }
+  

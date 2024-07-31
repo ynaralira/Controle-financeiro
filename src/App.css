@@ -1,0 +1,263 @@
+@import url('https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-straight/css/uicons-regular-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-straight/css/uicons-regular-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-rounded/css/uicons-regular-rounded.css');
+
+body{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+}
+
+button{
+  cursor: pointer;
+}
+
+.container-principal{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  margin-top: 20px;
+}
+
+.container-principal > .menu{
+  list-style: none;
+  display: flex;
+  padding: 10px;
+}
+
+.container-principal > .menu > .link{
+  text-decoration: none;
+  color: white;
+  list-style: none;
+  padding: 1rem;
+  border-radius: 10px;
+  margin: 10px;
+  width: 25vw;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: #1B1B1B;
+  font-size: 18px;
+}
+
+.total-entradas, .total-saidas, .total-investimentos, .total-pagos{
+border-radius: 10px;
+padding: 70px;
+font-size: 30px;
+text-align: center;
+box-shadow: rgb(94, 94, 94) 2px 2px 2px;
+font-weight: 300;
+}
+
+
+.valor{
+  font-weight: 500;
+  margin-left: 10px;
+  }
+
+
+.total-entradas{
+  background-color: #02B755;
+}
+
+.total-saidas{
+  background-color: #9E2903;
+}
+
+.total-investimentos{
+  background-color: #021FB7;
+}
+
+.total-pagos{
+  background-color: #0333d1;
+}
+
+
+/* Estiliza as paginas*/
+
+.container-entradas, .container-todos, .container-saidas, .container-investimentos, .container-pagos{
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.box{
+  width: 50%;
+}
+
+/* Estiliza o componente header */
+.header{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.header .profile-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative; /* Necessário para o menu do perfil */
+}
+
+.header .profile-container i {
+  font-size: 24px; 
+  color: white;
+}
+
+.header .profile-name {
+  margin-left: 10px;
+  color: white;
+}
+
+.header > .menu{
+  background-color: #1B1B1B;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+}
+
+.profile-menu {
+  position: absolute;
+  right: 10px;
+  top: 15%; 
+  background: rgba(48, 48, 48, 0.7); 
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px; 
+}
+.logout-button {
+  background-color: #05205c;
+  color: white; 
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.logout-button:hover {
+  background-color: #555; 
+}
+
+.header > .pesquisa{
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header > .pesquisa > input{
+  background-color: #252525;
+  outline: none;
+  border: none;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  padding-left: 10px;
+  font-size: 15px;
+  color: white;
+}
+
+/* Estiliza o componente buttons */
+.container-buttons > button{
+  margin-right: 10px;
+  background-color: #252525;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 15px;
+}
+/* Estiliza pagina de login */
+.container-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh; 
+  background: linear-gradient(to right, #000000, #282c34);
+  color: white;
+}
+
+h1 {
+  margin-bottom: 30px; 
+  font-size: 2.5em; 
+  font-weight: 700; 
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 450px; 
+  height: 70vh; 
+  background: rgba(26, 26, 26, 0.8); 
+  padding: 30px; 
+  border-radius: 15px; 
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6); 
+  backdrop-filter: blur(12px); 
+  -webkit-backdrop-filter: blur(12px); 
+  justify-content: center;
+}
+
+.container-login input[type='text'], 
+.container-login input[type='password'], 
+.container-login input[type='submit'] {
+  width: 100%; 
+  max-width: 400px; 
+  height: 45px; 
+  border-radius: 10px; 
+  outline: none;
+  border: none;
+  padding: 0 15px;
+  color: white;
+  font-size: 16px;
+  margin-top: 2rem;
+  box-sizing: border-box; 
+}
+
+.container-login input[type='text']{
+  background-color: #333 !important; 
+}
+.container-login input[type='password'] {
+  background-color: #333; 
+}
+
+.container-login input[type='submit'] {
+  background-color: #007bff; 
+  cursor: pointer; 
+  transition: background-color 0.3s, box-shadow 0.3s; 
+}
+
+.container-login input[type='submit']:hover {
+  background-color: #0056b3; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+
+
+
