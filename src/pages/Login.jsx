@@ -33,14 +33,14 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch('../../php/auth.php', {
+      const response = await fetch('/auth.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
-
+    
       const result = await response.json();
 
       if (result.success) {

@@ -58,7 +58,7 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
                 }
             }
 
-            const response = await fetch("../../../php/registrar_pagamento.php", {
+            const response = await fetch("/registrar_pagamento.php", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
 
     const excluirEntradaCorrespondente = async (valorTransacao) => {
         try {
-            const response = await fetch("../../../php/excluir_entrada_correspondente.php", {
+            const response = await fetch("/excluir_entrada_correspondente.php", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
     const excluirTransacao = async (index, tipoTransacao) => {
         try {
             const transacao = transacoes[index];
-            const response = await fetch("../../../php/excluir_transacao.php", {
+            const response = await fetch("/excluir_transacao.php", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
 
     const fetchData = async () => {
         try {
-            const response = await fetch("../../../php/lista_transacoes.php", {
+            const response = await fetch("/lista_transacoes.php", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -224,7 +224,7 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
                                     onChange={() => registrarPagamento(index)}
                                 />
                             )}
-                            
+
                             <span className={Icone({ isPaid: transacao.isPaid })}>
                                 {getIconForFormaPagamento(transacao.ID_FORMA_PAGAMENTO)}
                             </span>
