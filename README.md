@@ -5,19 +5,19 @@ O **Controle Financeiro** é uma aplicação simples e eficaz para gerenciamento
 ## 🚀 Funcionalidades
 
 - **💰 Registro de Entradas**
-  - Adicione receitas e ganhos para um controle detalhado das suas finanças.
+  - Adicione receitas e ganhos para um controle das suas finanças.
 
 - **📉 Registro de Despesas**
-  - Registre e categorize suas despesas para acompanhar os gastos de forma clara.
+  - Registre suas despesas para acompanhar os gastos de forma clara.
 
 - **✅ Controle de Despesas Pagas**
   - Marque despesas como pagas e mantenha um registro do status das suas saídas financeiras.
 
 - **🔒 Acesso Exclusivo do Usuário**
-  - Cada usuário tem acesso restrito às suas próprias informações financeiras, garantindo privacidade e segurança dos dados.
+  - Cada usuário tem acesso restrito às suas próprias informações financeiras.
 
 - **📄 Geração de Relatórios em PDF**
-  - Gere e imprima relatórios financeiros em formato PDF, facilitando a análise e a documentação das suas finanças.
+  - Gere e imprima relatórios financeiros em formato PDF, facilitando a análise das suas finanças.
 
 ## 🛠️ Tecnologias Utilizadas
 
