@@ -1,6 +1,6 @@
 # 📊 Controle Financeiro
 
-O **Controle Financeiro** é um sistema de gerenciamento financeiro completo desenvolvido com **React**, **PHP** e **MySQL**. Este projeto permite que os usuários registrem e gerenciem suas finanças pessoais de maneira eficiente e segura, oferecendo uma interface amigável e funcionalidades avançadas para o controle financeiro.
+O **Controle Financeiro** é uma aplicação simples e eficaz para gerenciamento financeiro, desenvolvida com **React**, **PHP** e **MySQL**. Este projeto foi projetado para ajudar os usuários a registrar e gerenciar suas finanças pessoais de forma clara e prática. Com uma interface amigável e fácil de usar, o sistema proporciona uma experiência de controle financeiro acessível e eficiente.
 
 ## 🚀 Funcionalidades
 
