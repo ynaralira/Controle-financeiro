@@ -1,11 +1,11 @@
 
 .inicio > .btn-add{
-    background-color: #252525;
+    background-color: #181818;
     color: white;
-    font-size: 20px;
+    font-size: 15px;
     padding: 10px;
     border: none;
-    border-radius: 10px;
+    border-radius: 1.5rem;
     margin-left: 10px;
   }
   
@@ -38,12 +38,12 @@
     cursor: pointer;
     font-size: 24px;
     color: #fffcfc;
-    background-color: #292929;
+    background-color: #202020;
     border-radius: 10px;
-    padding: 5px 10px;
+    padding: 10px;
     text-align: center;
     position: absolute;
-    top: 10px;
+    top: 15px;
     right: 10px;
   }
   
@@ -53,15 +53,18 @@
   
   .input-container input[type='text'],
   .input-container input[type='date'],
-  .input-container input[type='number'],
   .input-container select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #dbd9db;
     border-radius: 5px;
     font-size: 16px;
-    background-color: #333;
-    color: white;
+    background-color: #1d1d1d;
+    color: rgb(173, 171, 171);
+  }
+
+  input:focus , select:focus{
+    outline: none;
   }
   
   .input-container {
@@ -71,7 +74,7 @@
   }
   
   .add-button {
-    background-color: #4CAF50; 
+    background: linear-gradient(135deg, rgb(37, 37, 37), rgb(66, 66, 66), rgb(10, 10, 10));
     border: none; 
     color: white;
     padding: 15px 32px;
@@ -83,8 +86,7 @@
     transition: background-color 0.3s; 
     width: 100%;
   }
-  
   .add-button:hover {
-    background-color: #45a049; 
+    background-color: #111111; 
   }
   

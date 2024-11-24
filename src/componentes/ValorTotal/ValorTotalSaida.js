@@ -5,18 +5,18 @@ import { useAuth } from '../AuthContext';
 const ValorTotalSaida = ({ totalSaidas, atualizarTotalSaidas }) => {
     const [somaSaidas, setSomaSaidas] = useState(totalSaidas);
     const location = useLocation();
-    const { userId } = useAuth(); 
+    const { contaId } = useAuth(); 
 
     useEffect(() => {
-        if (location.pathname === '/home' && userId) {
+        if (location.pathname === '/home' && contaId) {
             const fetchData = async () => {
                 try {
-                    const response = await fetch("/index.php", {
+                    const response = await fetch("http://localhost/Controle-financeiro/back-end/index.php", {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ id_usuario: userId }), 
+                        body: JSON.stringify({ id_conta: contaId }), 
                     });
 
                     const data = await response.json();
@@ -35,7 +35,7 @@ const ValorTotalSaida = ({ totalSaidas, atualizarTotalSaidas }) => {
             setSomaSaidas(totalSaidas);
             atualizarTotalSaidas(totalSaidas); 
         }
-    }, [location.pathname, atualizarTotalSaidas, totalSaidas, userId]);
+    }, [location.pathname, atualizarTotalSaidas, totalSaidas, contaId]);
 
     const formatNumber = (number) => {
         if (number === undefined || number === null || isNaN(number)) {

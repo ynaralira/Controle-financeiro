@@ -1,98 +1,108 @@
+.container-lista {
+  margin-top: 20px;
+}
 
-.container-lista{
-    margin-top: 20px;
-  }
-  
-  .container-lista > ul{
-    list-style: none;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  
-  .container-lista > ul > li{
-    background-color: #252525;
-    padding: 20px;
-    display: flex;
-    border-radius: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .container-lista > ul > li > span {
-    margin: 10px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .data-valor{
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .titulo{
-    font-weight: 500;
-  }
-  
-  .message{
-    background-color: #252525;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 15px;
-  }
-  
-  .btn-excluir {
-    background-color: #252525; 
-    color: #fff; 
-    border: none;
-    border-radius: 50px; 
-    padding: 10px; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease, transform 0.2s ease; 
-    display: inline-flex;
-    align-items: center; 
-    gap: 6px; 
-  }
-  
-  .btn-excluir:hover {
-    background-color: #3f3c3c; 
-    transform: scale(1.05); 
-  }
-  
-  .btn-excluir:focus {
-    outline: none; 
-  }
-  
-  .btn-excluir i {
-    font-size: 20px; 
-  }
-  
+.container-lista > ul {
+  list-style: none;
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
-.icone-entrada{
-    background-color: #02B755;
-  }
-  
-  .icone-saidas{
-    background-color:#9E2903;
-  }
-  
-  .icone-investimento{
-    background-color:#021FB7;
-  }
-  
-  
-  .icone-pagos{
-    background-color: #0333d1;
-  }
-  
-  .icone-investimento, .icone-entrada, .icone-saidas, .icone-pagos{
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    padding: 10px;
-    width: 50px;
-  }
-  
+.container-lista > ul > li {
+  background-color: #131313;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 2rem;
+  margin-bottom: 20px;
+  padding: 1rem;
+}
+
+.titulo {
+  font-weight: 500;
+}
+
+.message {
+  background-color: #181818;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.btn-list button {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  gap: 6px;
+}
+
+.btn-list  button:hover {
+  background: linear-gradient(135deg, rgb(110, 110, 110), rgb(71, 71, 71), rgb(32, 32, 32));
+  transform: scale(1.05);
+}
+
+.btn-list  button:focus {
+  outline: none;
+}
+
+.btn-list  button i {
+  font-size: 20px;
+}
+
+.btn-list{
+  display: flex;
+  justify-content: flex-end;
+  width: 10%;
+}
+
+.icone-entrada {
+  background: linear-gradient(135deg, #02B755 50%, #3fdd99 100%);
+}
+
+.icone-saidas {
+  background: linear-gradient(135deg, #9E2903 50%, #e45c52 100%);
+}
+
+.icone-investimento {
+  background: linear-gradient(135deg, #021FB7 50%, #3f75f1 100%);
+}
+
+.icone-pagos {
+  background: linear-gradient(135deg, #0333d1 50%, #4f98f1 100%);
+}
+
+.icone-investimento, .icone-entrada, .icone-saidas, .icone-pagos {
+  border-radius: 2rem;
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+
+.text-saidas {
+  font-weight: 500;
+  color: rgb(248, 37, 37);
+}
+
+.titles, .content-values {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr; 
+  gap: 10px;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+.titles span, .content-values span {
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 70%;
+  max-width: 70%;
+}

@@ -1,52 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useAuth } from '../AuthContext'; // Certifique-se de importar o hook useAuth
+import { useAuth } from '../AuthContext';
 
 const ValorTotalEntrada = ({ totalEntradas, atualizarTotalEntradas }) => {
   const [somaEntradas, setSomaEntradas] = useState(totalEntradas);
   const location = useLocation();
-  const { userId } = useAuth(); 
+  const { contaId } = useAuth();
+
+  const atualizarSomaEntradas = useCallback((valor) => {
+    setSomaEntradas(valor);
+    atualizarTotalEntradas(valor);
+  }, [atualizarTotalEntradas]);
 
   useEffect(() => {
-    if (location.pathname === '/home' && userId) {
-      const fetchData = async () => {
-        try {
-          const response = await fetch("/index.php", {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id_usuario: userId }), 
-          });
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost/Controle-financeiro/back-end/index.php", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id_conta: contaId }),
+        });
 
-          const data = await response.json();
-
-          const valoresEntradas = data.valor_entrada.map(item => parseFloat(item.valor));
-          const somaEntradas = valoresEntradas.reduce((total, valor) => total + valor, 0);
-          setSomaEntradas(somaEntradas);
-          atualizarTotalEntradas(somaEntradas); 
-        } catch (error) {
-          console.error('Erro ao buscar os valores de entradas:', error);
+        if (!response.ok) {
+          throw new Error('Erro ao buscar os valores de entradas');
         }
-      };
 
+        const data = await response.json();
+        const valoresEntradas = data.valor_entrada.map(item => parseFloat(item.valor));
+        const soma = valoresEntradas.reduce((total, valor) => total + valor, 0);
+        atualizarSomaEntradas(soma);
+      } catch (error) {
+        console.error('Erro ao buscar os valores de entradas:', error);
+      }
+    };
+
+    if (location.pathname === '/home' && contaId) {
       fetchData();
     } else {
-      setSomaEntradas(totalEntradas);
-      atualizarTotalEntradas(totalEntradas); 
+      atualizarSomaEntradas(totalEntradas);
     }
-  }, [location.pathname, atualizarTotalEntradas, totalEntradas, userId]); 
+  }, [location.pathname, contaId, totalEntradas, atualizarSomaEntradas]);
 
   const formatNumber = (number) => {
-    if (number === undefined || number === null || isNaN(number)) {
+    if (isNaN(number)) {
       return '0,00';
     }
     return number.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
-  return (
-    <span>{formatNumber(somaEntradas)}</span>
-  ); 
+  return <span>{formatNumber(somaEntradas)}</span>;
 };
 
 export default ValorTotalEntrada;

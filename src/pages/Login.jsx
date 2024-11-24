@@ -34,19 +34,19 @@ const Login = () => {
 
     try {
       
-      const response = await fetch('http://ynara.free.nf/auth.php', {
+      const response = await fetch('http://localhost/Controle-financeiro/back-end/auth.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
-    
+  
       const result = await response.json();
 
       if (result.success) {
-        const { id_usuario, nm_usuario, email } = result; 
-        login({ id_usuario, nm_usuario, email });
+        const { id_usuario, nm_usuario, email, id_conta } = result; 
+        login({ id_usuario, nm_usuario, email, id_conta });
         navigate('/home');
       } else {
         setAlert({ message: 'Email ou senha incorretos', type: 'error' });
@@ -61,16 +61,24 @@ const Login = () => {
     <div className='container-login'>
       <form onSubmit={handleSubmit}>
       <h1>Lo-gin</h1>
+      <div className='label'>
+        <label htmlFor="email">E-mail</label>
+      </div>
         <input
           type="text"
           placeholder='Digite seu e-mail'
           value={email}
+          name='email'
           onChange={(e) => setEmail(e.target.value)}
         />
+        <div className='label'>
+          <label htmlFor="password">Senha</label>
+        </div>
         <input
           type="password"
           placeholder='Digite sua senha'
           value={password}
+          name='password'
           onChange={(e) => setPassword(e.target.value)}
         />
         <input type="submit" value="Acessar" />

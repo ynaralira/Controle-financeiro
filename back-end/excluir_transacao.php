@@ -10,17 +10,17 @@ require_once("conexao.php");
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $dataRecebida = json_decode(file_get_contents("php://input"), true);
 
-    if (isset($dataRecebida['id']) && isset($dataRecebida['tipo']) && isset($dataRecebida['id_usuario'])) {
+    if (isset($dataRecebida['id']) && isset($dataRecebida['tipo']) && isset($dataRecebida['id_conta'])) {
         $id = mysqli_real_escape_string($conexao, $dataRecebida['id']);
         $tipo = mysqli_real_escape_string($conexao, $dataRecebida['tipo']);
-        $id_usuario = intval($dataRecebida['id_usuario']);  
+        $id_conta = intval($dataRecebida['id_conta']);  
 
         if ($tipo === "entrada") {
             $table = "RECEITAS";
         } else{
             $table = "SAIDAS";
         } 
-        $sql = "DELETE FROM $table WHERE ID = '$id' AND id_usuario = $id_usuario";
+        $sql = "DELETE FROM $table WHERE ID = '$id' AND id_conta = $id_conta";
 
         if (mysqli_query($conexao, $sql)) {
             echo json_encode(array("message" => "Exclusão realizada com sucesso"));

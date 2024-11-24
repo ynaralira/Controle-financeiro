@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 
 function Header({ onBuscar }) {
     const { logout, user } = useAuth(); 
     const navigate = useNavigate();
+    const location = useLocation();
     const [valorBusca, setValorBusca] = useState('');
     const [showProfileMenu, setShowProfileMenu] = useState(false);
 
+    useEffect(() => {
+        console.log("Current path:", location.pathname); 
+    }, [location]);
+
     const handleBuscar = () => {
-        console.log("Termo de busca:", valorBusca); 
         onBuscar(valorBusca); 
     };
 
@@ -22,20 +26,11 @@ function Header({ onBuscar }) {
         setShowProfileMenu(!showProfileMenu);
     };
 
+    const isNotHome = location.pathname !== "/home";
+
     return (
         <div className="header">
-            <Link to="/home" className="menu">
-                <i className="fi fi-br-menu-burger"></i>
-            </Link>
-            <div className="pesquisa">
-                <input 
-                    type="text" 
-                    placeholder="Digite aqui" 
-                    value={valorBusca} 
-                    onChange={(e) => setValorBusca(e.target.value)} 
-                />
-            </div>
-            <div className="profile-container" onClick={toggleProfileMenu}>
+             <div className={isNotHome ? "profile-container-left" : "profile-container"} onClick={toggleProfileMenu}>
                 <i className="fi fi-br-user"></i>
                 {user && <div className="profile-name">{user.nm_usuario}</div>}
             </div>

@@ -1,12 +1,14 @@
+// Icone.js
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-const Icones = ({ isPaid }) => {
+const Icone = ({ isPaid, cs_tipo }) => {
   const location = useLocation();
   let iconClass;
-  if (location.pathname.includes('entradas')) {
+
+  if (location.pathname.includes('entradas') || cs_tipo === "R") {
     iconClass = 'icone-entrada';
-  } else if (location.pathname.includes('saidas')) {
+  } else if (location.pathname.includes('saidas') || cs_tipo === "S") {
     iconClass = 'icone-saidas';
   } else {
     iconClass = 'icone-pagos';
@@ -15,4 +17,4 @@ const Icones = ({ isPaid }) => {
   return iconClass;
 };
 
-export default Icones;
+export default Icone;

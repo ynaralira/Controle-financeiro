@@ -21,7 +21,7 @@ if (!isset($data['email']) || !isset($data['password'])) {
 $email = $data['email'];
 $password = strval($data['password']);
 
-$stmt = $conexao->prepare("SELECT id_usuario, nm_usuario, email FROM usuarios WHERE email = ? AND senha = ?");
+$stmt = $conexao->prepare("SELECT u.id_usuario, u.nm_usuario, u.email, c.id_conta FROM usuarios u, contas c WHERE c.id_usuario = u.id_usuario AND u.email = ? AND u.senha = ?");
 if (!$stmt) {
     echo json_encode(['success' => false, 'message' => 'Erro na preparação da consulta']);
     exit();
@@ -32,14 +32,15 @@ $stmt->execute();
 $stmt->store_result();
 
 if ($stmt->num_rows > 0) {
-    $stmt->bind_result($id_usuario, $nm_usuario, $email);
+    $stmt->bind_result($id_usuario, $nm_usuario, $email, $id_conta);
     $stmt->fetch();
     
     echo json_encode([
         'success' => true,
         'id_usuario' => $id_usuario,
         'nm_usuario' => $nm_usuario,
-        'email' => $email
+        'email' => $email, 
+        'id_conta' => $id_conta
     ]);
 } else {
     echo json_encode(['success' => false, 'message' => 'Email ou senha incorretos']);

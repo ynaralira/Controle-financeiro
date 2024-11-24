@@ -33,8 +33,8 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user, welcomeShown]);
 
-  const login = ({ id_usuario, nm_usuario, email }) => {
-    const user = { id_usuario, nm_usuario, email };
+  const login = ({ id_usuario, nm_usuario, email, id_conta }) => { 
+    const user = { id_usuario, nm_usuario, email, id_conta }; 
     setUser(user);
     localStorage.setItem('user', JSON.stringify(user));
     const lastLoginDate = localStorage.getItem('lastLoginDate');
@@ -55,7 +55,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, userId: user ? user.id_usuario : null, login, logout, alert, setAlert }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      userId: user ? user.id_usuario : null, 
+      contaId: user ? user.id_conta : null, 
+      login, 
+      logout, 
+      alert, 
+      setAlert 
+    }}>
       {children}
     </AuthContext.Provider>
   );

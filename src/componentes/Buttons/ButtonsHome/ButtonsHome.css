@@ -1,0 +1,23 @@
+.buttons-principal {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 0.5rem;
+}
+
+.buttons-principal button {
+    padding: 0.5rem;
+    border-radius: 10px;
+    color: white;
+    font-size: 1rem;
+    flex: 1; 
+}
+
+.view {
+    background: linear-gradient(135deg, rgb(110, 110, 110), rgb(71, 71, 71), rgb(32, 32, 32));
+    border: none;
+}
+
+.pdf {
+    background-color: transparent;
+    border: 1px solid white;
+}

@@ -5,18 +5,18 @@ import { useAuth } from '../AuthContext';
 const ValorTotalPago = ({ totalPagos, atualizarTotalPagos }) => {
   const [somaPagos, setSomaPagos] = useState(totalPagos);
   const location = useLocation();
-  const { userId } = useAuth(); 
+  const { contaId } = useAuth(); 
 
   useEffect(() => {
-    if (location.pathname === '/home' && userId) {
+    if (location.pathname === '/home' && contaId) {
       const fetchData = async () => {
         try {
-          const response = await fetch("/index.php", {
+          const response = await fetch("http://localhost/Controle-financeiro/back-end/index.php", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ id_usuario: userId }), 
+            body: JSON.stringify({ id_conta: contaId }), 
           });
 
           const data = await response.json();
@@ -35,7 +35,7 @@ const ValorTotalPago = ({ totalPagos, atualizarTotalPagos }) => {
       setSomaPagos(totalPagos);
       atualizarTotalPagos(totalPagos); 
     }
-  }, [location.pathname, atualizarTotalPagos, totalPagos, userId]); 
+  }, [location.pathname, atualizarTotalPagos, totalPagos, contaId]); 
 
   const formatNumber = (number) => {
     if (number === undefined || number === null || isNaN(number)) {

@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Buttons from '../Buttons';
-import Icone from '../Icones';
+import Icones from '../Icones';
 import { useAuth } from '../AuthContext';
 import Alert from '../Alert/Alert'; 
 import './ListaTransacoes.css';
+import ModalPagamento from '../Modal/ModalPagamento/ModalPagamento';
 
 function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
     const [transacoes, setTransacoes] = useState([]);
     const [carregando, setCarregando] = useState(true);
     const [checkboxStates, setCheckboxStates] = useState([]);
     const [alert, setAlert] = useState({ message: '', type: '' }); 
+    const [modalVisible, setModalVisible] = useState(false);  
+    const [dataPagamento, setDataPagamento] = useState(''); 
+    const [modalHandlers, setModalHandlers] = useState({ onConfirm: () => {}, onClose: () => {} });
     const location = useLocation();
-    const { userId } = useAuth(); 
+    const { contaId } = useAuth(); 
 
     const getIconForFormaPagamento = (idFormaPagamento) => {
         switch (idFormaPagamento) {
@@ -51,21 +55,41 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
             const transacao = transacoes[index];
             const valorTransacao = parseFloat(transacao.VALOR);
 
-            if (location.pathname.includes('saidas')) {
-                const exclusaoSucesso = await excluirEntradaCorrespondente(valorTransacao);
-                if (!exclusaoSucesso) {
-                    return;
-                }
+            const dataPagamento = await new Promise((resolve, reject) => {
+                setModalVisible(true); 
+                const handleConfirm = (date) => {
+                    setModalVisible(false); 
+                    resolve(date); 
+                };
+                const handleCancel = () => {
+                    setModalVisible(false); 
+                    reject('Ação cancelada.');
+                };
+
+                setModalHandlers({ onConfirm: handleConfirm, onClose: handleCancel });
+            }).catch((error) => {
+                console.log(error);
+                return null;
+            });
+
+            if (!dataPagamento) {
+                return;
+            }
+            
+            const exclusaoSucesso = await excluirEntradaCorrespondente(valorTransacao);
+            if (!exclusaoSucesso) {
+                return;
             }
 
-            const response = await fetch("https://controle-financeiro-git-main-ynaraliras-projects.vercel.app/registrar_pagamento.php", {
+            const response = await fetch("http://localhost/Controle-financeiro/back-end/registrar_pagamento.php", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     id: transacao.ID,
-                    id_usuario: userId
+                    id_conta: contaId,
+                    dt_pago: dataPagamento
                 }),
             });
 
@@ -81,14 +105,14 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
 
     const excluirEntradaCorrespondente = async (valorTransacao) => {
         try {
-            const response = await fetch("https://controle-financeiro-git-main-ynaraliras-projects.vercel.app/excluir_entrada_correspondente.php", {
+            const response = await fetch("http://localhost/Controle-financeiro/back-end/excluir_entrada_correspondente.php", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     valor: valorTransacao,
-                    id_usuario: userId 
+                    id_conta: contaId 
                 }),
             });
 
@@ -114,7 +138,7 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
     const excluirTransacao = async (index, tipoTransacao) => {
         try {
             const transacao = transacoes[index];
-            const response = await fetch("https://controle-financeiro-git-main-ynaraliras-projects.vercel.app/excluir_transacao.php", {
+            const response = await fetch("http://localhost/Controle-financeiro/back-end/excluir_transacao.php", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -122,7 +146,7 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
                 body: JSON.stringify({
                     id: transacao.ID,
                     tipo: tipoTransacao,
-                    id_usuario: userId 
+                    id_conta: contaId 
                 }),
             });
 
@@ -135,7 +159,6 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
                 setAlert({ message: result.error, type: 'error' });
                 return false;
             } else {
-                setAlert({ message: result.message, type: 'success' });
                 fetchData();
                 return true;
             }
@@ -147,66 +170,87 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
 
     const fetchData = async () => {
         try {
-            const response = await fetch("https://controle-financeiro-git-main-ynaraliras-projects.vercel.app/lista_transacoes.php", {
+            const response = await fetch("http://localhost/Controle-financeiro/back-end/lista_transacoes.php", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    id_usuario: userId 
+                    id_conta: contaId 
                 }),
             });
             const data = await response.json();
-
-            let transacoesLista = [];
-            const tipoTransacao = location.pathname.includes('entradas') ? 'entrada' : location.pathname.includes('saidas') ? 'saida' : 'pago';
-
+    
+            let transacoesLista = Array.isArray(data) ? data : [];
+            const tipoTransacao = location.pathname.includes('entradas') ? 'entrada' : location.pathname.includes('saidas') ? 'saida' :  location.pathname.includes('pagos') ? 'pago' : 'todas';
+    
             switch (tipoTransacao) {
                 case 'entrada':
-                    transacoesLista = data.transacao_entrada;
+                    transacoesLista = data.transacao_entrada || [];
                     break;
                 case 'saida':
-                    transacoesLista = data.transacao_saida;
+                    transacoesLista = data.transacao_saida || [];
                     break;
                 case 'pago':
-                    transacoesLista = data.transacao_pagos;
+                    transacoesLista = data.transacao_pagos || [];
+                    break;
+                case 'todas':
+                    transacoesLista = data.transacao_todas || [];
                     break;
                 default:
                     console.error('Tipo de transação inválido:', tipoTransacao);
                     break;
             }
-
+    
             const transacoesFiltradas = transacoesLista.filter(transacao => 
+                transacao.DESCRICAO && 
                 transacao.DESCRICAO.toLowerCase().includes(termoBusca.toLowerCase())
             );
-
+    
             const transacoesFormatadas = transacoesFiltradas.map(transacao => ({
                 ...transacao,
                 DATA: formatarData(transacao.DATA),
                 ID_FORMA_PAGAMENTO: parseInt(transacao.ID_FORMA_PAGAMENTO)
             }));
-
+    
             setTransacoes(transacoesFormatadas);
             setCarregando(false);
             setCheckboxStates(new Array(transacoesFormatadas.length).fill(false));
             atualizarTotal(transacoesFormatadas);
-
+    
         } catch (error) {
             console.error('Erro ao buscar transações:', error);
             setCarregando(false);
             setAlert({ message: 'Erro ao buscar transações', type: 'error' });
         }
     };
-
+    
     useEffect(() => {
         fetchData();
-    }, [location, insercaoFeita, termoBusca, userId]);
+    }, [location, insercaoFeita, termoBusca, contaId]);
 
+    const isNotHome = location.pathname !== "/home";
     return (
-        <div className="container-lista">
-            <Buttons transacoes={transacoes} tipoTransacao={location.pathname.includes('entradas') ? 'entrada' : 'saida'} />
-            <h3>Transações de {location.pathname.includes('entradas') ? 'Entrada' : location.pathname.includes('saidas') ? 'Saída' : 'Pago'}</h3>
-            
+        <div className={'container-lista'}>
+            { isNotHome && (
+                <Buttons transacoes={transacoes} tipoTransacao={location.pathname.includes('entradas') ? 'entrada' : 'saida'} />
+              )
+            }
+
+            {!isNotHome ? (
+            <h3>Todas as transações</h3>
+            ) : (
+            <h3>
+                Transações de {location.pathname.includes('entradas') ? 'Entrada' : location.pathname.includes('saidas') ? 'Saída' : 'Pago'}
+            </h3>
+            )}
+            <div className="pesquisa">
+                <input 
+                    type="text" 
+                    placeholder="Digite aqui"  
+                />
+            </div>
+
             {alert.message && <Alert message={alert.message} type={alert.type} />}
             
             {carregando ? (
@@ -217,32 +261,54 @@ function ListaTransacoes({ insercaoFeita, termoBusca, atualizarTotalSaidas }) {
                 <ul>
                     {transacoes.map((transacao, index) => (
                         <li key={transacao.ID}>
-                            {location.pathname.includes('saidas') && (
-                                <input
-                                    type='checkbox'
-                                    checked={checkboxStates[index] || false}
-                                    onChange={() => registrarPagamento(index)}
-                                />
-                            )}
-
-                            <span className={Icone({ isPaid: transacao.isPaid })}>
-                                {getIconForFormaPagamento(transacao.ID_FORMA_PAGAMENTO)}
-                            </span>
-                            <span className="titulo">{transacao.DESCRICAO}</span>
-                            <div className='data-valor'>
-                                <span className="data">{transacao.DATA}</span>
-                                <span className="valor-lista">R$ {formatarValor(transacao.VALOR)}</span>
+                            <div>
+                                <span className={Icones({ isPaid: transacao.isPaid, cs_tipo: transacao.CS_TIPO })}>
+                                    {getIconForFormaPagamento(transacao.ID_FORMA_PAGAMENTO)}
+                                </span>
                             </div>
-                            <button 
-                                className="btn-excluir"
-                                onClick={() => excluirTransacao(index, location.pathname.includes('entradas') ? 'entrada' : 'saidas')}
-                            >
-                                <i className="fi fi-rr-trash"></i>
-                            </button>
+                            <div className='content'>
+                                <div className='titles'>
+                                    <span className='titulo'>Descricao</span>
+                                    <span className='titulo'>{transacao.CS_TIPO === "P" ? "Data pago" : "Data"}</span>
+                                    <span className='titulo'>Valor</span>
+                                </div>
+                                <div className='content-values'>
+                                        <span className="desc">{transacao.DESCRICAO}</span>
+                                        <span className="data">{transacao.DATA}</span>
+                                        <span className={location.pathname.includes('pagos') || transacao.CS_TIPO === "P" ? "text-saidas" : "valor-lista"}>
+                                        {location.pathname.includes('pagos') || transacao.CS_TIPO === "P"
+                                            ? `- R$ ${formatarValor(transacao.VALOR)}`
+                                            : `R$ ${formatarValor(transacao.VALOR)}`
+                                        }
+                                        </span>
+                                </div>
+                            </div>
+                            <div className='btn-list'>
+                                <div>
+                                {(location.pathname.includes('saidas') || transacao.CS_TIPO === "S") && (
+                                <button
+                                onClick={() => registrarPagamento(index)}
+                                >
+                                    <i className="fi fi-rs-registration-paper"></i>
+                                </button>
+                                )}
+                                </div>
+                                <button 
+                                    onClick={() => excluirTransacao(index, location.pathname.includes('entradas') || transacao.CS_TIPO === "R" ? 'entrada' : 'saidas')}
+                                >
+                                    <i className="fi fi-rr-trash"></i>
+                                </button>
+                            </div>
                         </li>
                     ))}
                 </ul>
             )}
+         {modalVisible && (
+            <ModalPagamento 
+                onConfirm={modalHandlers.onConfirm} 
+                onClose={modalHandlers.onClose} 
+            />
+        )}
         </div>
     );
 }

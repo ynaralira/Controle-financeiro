@@ -8,7 +8,7 @@ function Add({ onInsert, tipoTransacao }) {
     const [data, setData] = useState('');
     const [valor, setValor] = useState('');
     const [formaPagamento, setFormaPagamento] = useState('');
-    const { userId } = useAuth(); 
+    const { contaId } = useAuth(); 
 
     const openModal = () => {
         setModalOpen(true);
@@ -19,8 +19,8 @@ function Add({ onInsert, tipoTransacao }) {
     };
 
     const handleAdd = () => {
-        if (!userId) {
-            console.error('ID do usuário ausente');
+        if (!contaId) {
+            console.error('Conta usente');
             return;
         }
 
@@ -30,11 +30,11 @@ function Add({ onInsert, tipoTransacao }) {
             valor,
             formaPagamento,
             tipoTransacao,
-            id_usuario: userId 
+            id_conta: contaId
         };
 
         
-        fetch('https://controle-financeiro-git-main-ynaraliras-projects.vercel.app/insert__dados_lista.php', {
+        fetch('http://localhost/Controle-financeiro/back-end/insert__dados_lista.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -66,16 +66,16 @@ function Add({ onInsert, tipoTransacao }) {
                         <span className="close-btn" onClick={closeModal}>&times;</span>
                         <h2>Registrar</h2>
                         <div className="input-container">
-                            <input type='text' placeholder='Digite aqui a descrição' value={descricao} onChange={(e) => setDescricao(e.target.value)} />
+                            <input type='text' name='desc' placeholder='Digite aqui a descrição' value={descricao} onChange={(e) => setDescricao(e.target.value)} />
                         </div>
                         <div className="input-container">
-                            <input type='date' value={data} onChange={(e) => setData(e.target.value)} />
+                            <input type='date' name='date' value={data} onChange={(e) => setData(e.target.value)} />
                         </div>
                         <div className="input-container">
-                            <input type='number' placeholder='Digite o valor' value={valor} onChange={(e) => setValor(e.target.value)} />
+                            <input type='text' name='value' placeholder='Digite o valor' value={valor} onChange={(e) => setValor(e.target.value)} />
                         </div>
                         <div className="input-container">
-                            <select value={formaPagamento} onChange={(e) => setFormaPagamento(e.target.value)}>
+                            <select name='forma' value={formaPagamento} onChange={(e) => setFormaPagamento(e.target.value)}>
                                 <option value="">Forma de pagamento</option>
                                 <option value="1">Dinheiro</option>
                                 <option value="2">Cartão de Crédito</option>

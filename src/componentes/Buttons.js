@@ -28,7 +28,7 @@ function Buttons({ transacoes, tipoTransacao }) {
   return (
     <div className="container-buttons">
       <button onClick={() => exportarPDF(transacoes, tipoTransacao)}>
-        <i className="fi fi-rr-file-pdf"></i> Imprimir Pdf
+        <i className="fi fi-rr-file-pdf"></i> 
       </button>
     </div>
   );

@@ -11,6 +11,7 @@ const App = () => {
         <AppRoutes />
       </Router>
     </AuthProvider>
+    
   );
 };
 

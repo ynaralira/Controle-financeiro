@@ -16,12 +16,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $valor = $dataRecebida['valor'];
     $formaPagamento = $dataRecebida['formaPagamento'];
     $tipoTransacao = $dataRecebida['tipoTransacao'];
-    $id_usuario = isset($dataRecebida['id_usuario']) ? intval($dataRecebida['id_usuario']) : 0;
+    $id_conta = isset($dataRecebida['id_conta']) ? intval($dataRecebida['id_conta']) : 0;
 
     if ($tipoTransacao === 'entrada') {
-        $sql = "INSERT INTO RECEITAS (descricao, data, valor, id_forma_pagamento, id_usuario) VALUES ('$descricao', '$data', '$valor', '$formaPagamento', $id_usuario)";
+        $sql = "INSERT INTO RECEITAS (descricao, data, valor, id_forma_pagamento, id_conta) VALUES ('$descricao', '$data', '$valor', '$formaPagamento', $id_conta)";
     } elseif ($tipoTransacao === 'saida') {
-        $sql = "INSERT INTO SAIDAS (descricao, data, valor, id_forma_pagamento, cs_pago, id_usuario) VALUES ('$descricao', '$data', '$valor', '$formaPagamento', 0, $id_usuario)";
+        $sql = "INSERT INTO SAIDAS (descricao, data, valor, id_forma_pagamento, cs_pago, id_conta) VALUES ('$descricao', '$data', '$valor', '$formaPagamento', 0, $id_conta)";
     } else {
         echo json_encode(array("error" => "Tipo de transação inválido"));
         exit();

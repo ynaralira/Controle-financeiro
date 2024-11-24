@@ -8,14 +8,31 @@
 @import url('https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-straight/css/uicons-regular-straight.css');
 @import url('https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css');
 @import url('https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-rounded/css/uicons-regular-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-straight/css/uicons-bold-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css');
 
 body{
   box-sizing: border-box;
-  margin: 0;
   padding: 0;
   background-color: black;
   font-family: "Roboto", sans-serif;
   font-weight: 100;
+}
+
+h1 {
+  margin-bottom: 30px; 
+  font-size: 2.5em; 
+  font-weight: 700; 
+  background: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h2 {
+  font-size: 1.2em !important;  
 }
 
 button{
@@ -24,42 +41,41 @@ button{
 
 .container-principal{
   display: flex;
-  align-items: center;
   flex-direction: column;
+  justify-content: center;
   color: white;
-  margin-top: 20px;
 }
 
-.container-principal > .menu{
-  list-style: none;
-  display: flex;
-  padding: 10px;
+.container-principal > .box-principal > h1{
+  font-size: 2.2rem;
 }
 
-.container-principal > .menu > .link{
-  text-decoration: none;
+.container-principal > .box-principal > .menu{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 1rem;
+}
+
+.container-principal > .box-principal > .menu > .card{
   color: white;
-  list-style: none;
-  padding: 1rem;
   border-radius: 10px;
-  margin: 10px;
-  width: 25vw;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  background-color: #1B1B1B;
-  font-size: 18px;
+  background-color: #1b1b1bb2;
+  box-shadow: #0f0f0f 5px 5px 50px 5px;
+  font-size: 1.2rem;
+  padding: 1rem;
+}
+
+.container-principal > .box-principal{
+  padding: 0 0 0 5rem;
 }
 
 .total-entradas, .total-saidas, .total-investimentos, .total-pagos{
-border-radius: 10px;
-padding: 70px;
-font-size: 30px;
-text-align: center;
-box-shadow: rgb(94, 94, 94) 2px 2px 2px;
-font-weight: 300;
+  border-radius: 2rem;
+  padding: 70px;
+  font-size: 30px;
+  text-align: center;
+  font-weight: 300;
 }
-
 
 .valor{
   font-weight: 500;
@@ -68,19 +84,28 @@ font-weight: 300;
 
 
 .total-entradas{
-  background-color: #02B755;
+  background: linear-gradient(#00ad3a, #054909);
 }
 
 .total-saidas{
-  background-color: #9E2903;
+  background: linear-gradient(#e0420d, #b41f05);
 }
 
 .total-investimentos{
-  background-color: #021FB7;
+  background: linear-gradient( #1c3bd6,#051b8a);
 }
 
 .total-pagos{
-  background-color: #0333d1;
+  background: linear-gradient( #1530b6,#480abd);
+}
+
+@media (max-width: 768px) { 
+  .container-principal > .box-principal > h1 {
+    font-size: 1.2rem;
+  }
+  .card {
+    font-size: 1.2rem;
+  }
 }
 
 
@@ -94,27 +119,37 @@ font-weight: 300;
 }
 
 .box{
-  width: 50%;
+  width: 70%;
 }
 
 /* Estiliza o componente header */
 .header{
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  width: 100vw;
-  margin-bottom: 30px;
-  margin-top: 30px;
+  justify-content: flex-end;
+  margin: 1rem 0 1rem 0;
 }
 
 .header .profile-container {
   display: flex;
   align-items: center;
   cursor: pointer;
-  position: relative; /* Necessário para o menu do perfil */
+  background-color: #131213;
+  padding: 0.7rem;
+  border-radius: 2rem;
 }
 
-.header .profile-container i {
+.header .profile-container-left {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  background-color: #131213;
+  padding: 0.7rem;
+  border-radius: 2rem;
+}
+
+.header i {
   font-size: 24px; 
   color: white;
 }
@@ -125,21 +160,26 @@ font-weight: 300;
 }
 
 .header > .menu{
-  background-color: #1B1B1B;
+  text-decoration: none;
+  background-color: #131213;
   color: white;
-  padding: 15px;
+  padding: 10px;
   font-size: 20px;
-  border: none;
-  border-radius: 10px;
+  border-radius: 1.5rem;
+  display: flex;
+}
+
+.header > .menu > span{
+  margin-left: 0.5rem;
 }
 
 .profile-menu {
   position: absolute;
   right: 10px;
-  top: 15%; 
-  background: rgba(48, 48, 48, 0.7); 
+  top: 16%; 
+  background: rgba(48, 48, 48, 0.4); 
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 2rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   z-index: 1000;
   display: flex;
@@ -148,11 +188,11 @@ font-weight: 300;
   width: 150px; 
 }
 .logout-button {
-  background-color: #05205c;
+  background-color: #2b055c;
   color: white; 
   border: none;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 2rem;
   cursor: pointer;
   width: 100%;
   text-align: center;
@@ -162,21 +202,19 @@ font-weight: 300;
   background-color: #555; 
 }
 
-.header > .pesquisa{
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
+.pesquisa{
+  margin: 1rem 0 1rem 0;
 }
 
-.header > .pesquisa > input{
-  background-color: #252525;
+.pesquisa > input{
+  background-color: #2b2b2b6c;
   outline: none;
   border: none;
   width: 100%;
   padding-top: 20px;
   padding-bottom: 20px;
-  border-radius: 10px;
-  padding-left: 10px;
+  border-radius: 2rem;
+  padding-left: 5px;
   font-size: 15px;
   color: white;
 }
@@ -184,12 +222,12 @@ font-weight: 300;
 /* Estiliza o componente buttons */
 .container-buttons > button{
   margin-right: 10px;
-  background-color: #252525;
+  background-color: #1a1a1a;
   color: white;
   border: none;
-  border-radius: 20px;
-  padding: 20px;
-  font-size: 15px;
+  border-radius: 2rem;
+  padding: 10px;
+  font-size: 20px;
 }
 /* Estiliza pagina de login */
 .container-login {
@@ -198,30 +236,62 @@ font-weight: 300;
   align-items: center;
   flex-direction: column;
   height: 100vh; 
-  background: linear-gradient(to right, #000000, #282c34);
   color: white;
 }
 
-h1 {
+.container-login h1 {
   margin-bottom: 30px; 
   font-size: 2.5em; 
   font-weight: 700; 
+  background: linear-gradient(135deg, rgb(201, 64, 187), rgb(220, 40, 255), rgb(150, 0, 210));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 form {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 450px; 
-  height: 70vh; 
-  background: rgba(26, 26, 26, 0.8); 
-  padding: 30px; 
-  border-radius: 15px; 
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6); 
-  backdrop-filter: blur(12px); 
-  -webkit-backdrop-filter: blur(12px); 
+  max-width: 450px;
+  height: 70vh;
+  background: rgba(89, 89, 89, 0.15);
+  border-radius: 15px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   justify-content: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+  clip-path: polygon(20% 0, 80% 0, 100% 20%, 120% 90%, 110% 110%, 0% 100%, 0 80%, 0 20%);
+}
+
+form::before, form::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(135deg, rgb(201, 64, 187), rgb(220, 40, 255), rgb(150, 0, 210));
+  z-index: -1; 
+}
+
+form::before {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5%; 
+  background: linear-gradient(135deg, rgb(201, 64, 187), rgb(220, 40, 255), rgb(150, 0, 210));
+}
+
+
+.container-login .label label {
+  font-size: 1em; 
+  font-weight: bold; 
+  color: #ffffff;
+  transition: color 0.3s; 
+}
+
+.container-login .label {
+  width: 100%;
+  margin-left: 65px;
+  margin-top: 25px;
 }
 
 .container-login input[type='text'], 
@@ -230,34 +300,62 @@ form {
   width: 100%; 
   max-width: 400px; 
   height: 45px; 
-  border-radius: 10px; 
+  border-radius: 2rem;
   outline: none;
   border: none;
   padding: 0 15px;
   color: white;
   font-size: 16px;
-  margin-top: 2rem;
+  margin-top: 1rem;
   box-sizing: border-box; 
 }
 
 .container-login input[type='text']{
-  background-color: #333 !important; 
+  background-color: #2d2c2c85 !important; 
 }
 .container-login input[type='password'] {
-  background-color: #333; 
+  background-color: #2d2c2c85 !important; 
 }
 
 .container-login input[type='submit'] {
-  background-color: #007bff; 
+  margin: 2rem;
+  background: linear-gradient(135deg, rgb(201, 64, 187), rgb(220, 40, 255), rgb(150, 0, 210));
   cursor: pointer; 
-  transition: background-color 0.3s, box-shadow 0.3s; 
+  transition: background-color 0.5s, box-shadow 5s; 
 }
 
 .container-login input[type='submit']:hover {
-  background-color: #0056b3; 
+  background: rgb(150, 0, 210);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
 }
 
 
+.app-layout {
+  display: flex;
+}
 
+.sidebar {
+  width: 50px;
+  background-color: #1e1e1f5d;
+}
 
+.main-content {
+  flex: 1;
+}
+
+.green{
+  color: #00ad3a;
+}
+
+.red{
+  color: rgb(241, 53, 53);
+}
+
+.blue{
+  color: #627af3;
+}
+
+.card-body > .title{
+  display: flex;
+  align-items: center;
+}

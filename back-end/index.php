@@ -8,39 +8,39 @@ header('Content-Type: application/json');
 
 include_once "conexao.php";
 
-function getValores($conexao, $id_usuario) {
+function getValores($conexao, $id_conta) {
     $data = array(
         'valor_entrada' => [],
         'valor_saida' => [],
         'valor_pagos' => []
     );
-    $sqlEntradas = "SELECT valor FROM RECEITAS WHERE id_usuario = ?";
+    $sqlEntradas = "SELECT valor FROM RECEITAS WHERE id_conta = ?";
     $stmtEntradas = $conexao->prepare($sqlEntradas);
     if (!$stmtEntradas) {
         echo json_encode(['error' => 'Erro na preparação da consulta Entradas: ' . $conexao->error]);
         exit();
     }
-    $stmtEntradas->bind_param("i", $id_usuario);
+    $stmtEntradas->bind_param("i", $id_conta);
     $stmtEntradas->execute();
     $resultEntradas = $stmtEntradas->get_result();
 
-    $sqlSaidas = "SELECT valor FROM SAIDAS WHERE CS_PAGO = 0 AND id_usuario = ?";
+    $sqlSaidas = "SELECT valor FROM SAIDAS WHERE CS_PAGO = 0 AND id_conta = ?";
     $stmtSaidas = $conexao->prepare($sqlSaidas);
     if (!$stmtSaidas) {
         echo json_encode(['error' => 'Erro na preparação da consulta Saídas: ' . $conexao->error]);
         exit();
     }
-    $stmtSaidas->bind_param("i", $id_usuario);
+    $stmtSaidas->bind_param("i", $id_conta);
     $stmtSaidas->execute();
     $resultSaidas = $stmtSaidas->get_result();
 
-    $sqlPagos = "SELECT valor FROM SAIDAS WHERE CS_PAGO = 1 AND id_usuario = ?";
+    $sqlPagos = "SELECT valor FROM SAIDAS WHERE CS_PAGO = 1 AND id_conta = ?";
     $stmtPagos = $conexao->prepare($sqlPagos);
     if (!$stmtPagos) {
         echo json_encode(['error' => 'Erro na preparação da consulta Pagos: ' . $conexao->error]);
         exit();
     }
-    $stmtPagos->bind_param("i", $id_usuario);
+    $stmtPagos->bind_param("i", $id_conta);
     $stmtPagos->execute();
     $resultPagos = $stmtPagos->get_result();
 
@@ -70,13 +70,13 @@ function getValores($conexao, $id_usuario) {
 }
 
 $data = json_decode(file_get_contents('php://input'), true);
-$id_usuario = isset($data['id_usuario']) ? intval($data['id_usuario']) : 0;
+$id_conta = isset($data['id_conta']) ? intval($data['id_conta']) : 0;
 
-if ($id_usuario === 0) {
-    echo json_encode(['success' => false, 'message' => 'ID do usuário ausente']);
+if ($id_conta === 0) {
+    echo json_encode(['success' => false, 'message' => 'Conta ausente']);
     exit();
 }
 
-getValores($conexao, $id_usuario);
+getValores($conexao, $id_conta);
 
 ?>
